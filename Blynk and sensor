@@ -33,6 +33,8 @@ void setup() {
   Blynk.begin(auth, ssid, pass);
   dht.begin();
 
+  pinMode(light, INPUT);  // Set LDR pin as input
+
   // Setup a function to be called every second
   timer.setInterval(100L, DHT11sensor);
   timer.setInterval(100L, rainSensor);
@@ -57,7 +59,7 @@ void DHT11sensor() {
   */
 
   Blynk.virtualWrite(V0, temp);  //V0 is for Temperature
-  Blynk.virtualWrite(V1, humid);  //V1 is for Humidity
+  Blynk.virtualWrite(V1, humid); //V1 is for Humidity
 
   lcd.setCursor(0, 0);  // display position
   lcd.print("T: ");
@@ -67,7 +69,7 @@ void DHT11sensor() {
 
   lcd.setCursor(0, 1);  // display position
   lcd.print("H: ");
-  lcd.print(humid);      // display the humidity
+  lcd.print(humid);     // display the humidity
   lcd.print("%");
 
 }
@@ -88,31 +90,28 @@ void rainSensor(){
 
   lcd.setCursor(8,0);
   lcd.print(" R: ");
-  lcd.print(rain);
+  lcd.print(value);
   lcd.print(" ");
 }
 
   //Get the LDR sensor values
+  WidgetLED LED(V3);
   void LDRsensor(){
      bool light = digitalRead(light);
-     if(light == 0){
-        WidgetLED LED(V3);
+     if(lightValue == 0){
         LED.on();
         lcd.setCursor(9,1);
         lcd.print("L: ");
         lcd.print("High");
-        lcd.print(" ");
-    } else if(light == 1){
-        WidgetLED LED(V3);
+    } else {
         LED.off();
         lcd.setCursor(9,1);
         lcd.print("L: ");
         lcd.print("Low");
-        lcd.print(" ");
     }
    
     Serial.println("Light level: ");
-    Serial.println(light);
+    Serial.println(lightValue);
     
     delay(1000);
 
