@@ -7,6 +7,7 @@
 #include <ESP8266WiFi.h>
 #include <BlynkSimpleEsp8266.h>
 #include <DHT.h>
+#include <Wire.h>
 #include <LiquidCrystal_I2C.h>
 
 BlynkTimer timer;
@@ -44,6 +45,12 @@ void setup()
   timer.setInterval(1000L, DHT11sensor);
   timer.setInterval(1000L, rainSensor);
   timer.setInterval(1000L, LDRsensor);
+}
+
+void loop()
+{
+  Blynk.run();  // Initiates Blynk
+  timer.run();  // Runs BlynkTimer
 }
 
 void DHT11sensor()
@@ -123,14 +130,3 @@ void LDRsensor()
   Serial.println(lightState);
 }
 
-void loop()
-{
-  Blynk.run();
-  timer.run();
-}
-
-
-void loop() {
-  Blynk.run(); // Initiates Blynk
-  timer.run(); // Initiates SimpleTimer
-}
