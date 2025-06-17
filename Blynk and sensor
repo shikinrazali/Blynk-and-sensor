@@ -23,7 +23,7 @@ char pass[] = " "; // Your WiFi password
 // Sensor pins
 #define DHT11_PIN   D4
 #define RAIN_SENSOR A0
-#define LDR_SENSOR  D7
+#define LDR_SENSOR  D0
 
 // DHT object, specifying sensor type (DHT11)
 DHT dht(DHT11_PIN, DHT11);
